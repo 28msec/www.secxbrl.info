@@ -1,0 +1,102 @@
+.pricing {
+
+  .plan {
+    margin-top: 2em;
+    margin-bottom: 4em;
+    border: 1px solid @gray-lighter;
+    border-radius: 5px;
+
+    hr {
+      border-color: @gray-lighter;
+    }
+
+    p, li {
+      color: @gray-light;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .symbol {
+      text-align: center;
+      font-size: 4em;
+      margin-top: -.5em;
+    }
+
+    .vsymbol {
+      text-align: center;
+      font-size: 4em;
+      margin-top: .5em;
+    }
+
+    .vlist {
+      margin-top: .5em;
+      padding-top: .5em;
+    }
+
+    .plus > li > span > i {
+      //color: @brand-primary;
+      padding-left: .5em;
+      parrding-right: .5em;
+    }
+
+    .capacity {
+      border-top: 1px solid @gray-lighter;
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 22px;
+
+      div {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        color: @gray-light;
+        padding: .5em;
+
+        i {
+          display: block;
+          font-size: 2.5em;
+        }
+      }
+
+      div:first-child {
+        float: left;
+        border-right: 1px solid @gray-lighter;
+      }
+
+      div:last-child {
+        clear: both;
+      }
+    }
+
+    .btn {
+      width: 160px;
+      margin: 0 0 11px;
+    }
+
+    .btn-auto-width {
+      width: auto !important;
+    }
+  }
+
+  .legend {
+    color: @gray-light;
+  }
+
+
+  #free .fa-circle {
+    color: @brand-primary;
+  }
+
+  #enterprise .fa-circle {
+    color: @brand-success;
+  }
+
+  #free .fa-light {
+    color: white;
+  }
+
+  #enterprise .fa-light {
+    color: white;
+  }
+}

@@ -1,0 +1,18 @@
+# general
+.idea
+.DS_Store
+*~
+.sass-cache
+
+# package control
+node_modules
+bower_components
+
+# logs
+npm-debug.log
+
+# build
+build/tmp
+build/dist
+
+#test

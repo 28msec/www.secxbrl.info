@@ -1,0 +1,57 @@
+<div class="modal-dialog inlined-modal">
+    <form ng-show="!showForgot" role="form" class="white-box" name="loginForm" ng-submit="login()" novalidate spellcheck="false" autocomplete="on">
+        <div class="modal-body">
+            <h3 class="text-center">Login</h3>
+            <div class="form-group">
+                <input type="email" class="form-control" name="loginEmail" ng-model="loginEmail" placeholder="Email" required autocomplete="on" />
+                <span class="text-danger" ng-show="loginForm.loginEmail.$error.required && loginAttempted">
+                    Email is required.
+                </span>
+                <span class="text-danger" ng-show="loginForm.loginEmail.$error.email && loginAttempted">
+                    Email is invalid.
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="loginPassword" ng-model="loginPassword" placeholder="Password" required autocomplete="on" />
+                <span class="text-danger" ng-show="loginForm.loginPassword.$error.required && loginAttempted">
+                    Password is required.
+                </span>
+                <span id="wrong-combination" class="text-danger" ng-show="loginForm.loginPassword.$error.unauthorized && loginAttempted">
+                    Email and Password do not match our records.
+                </span>
+            </div>
+            <div class="form-group text-right">
+                <span class="pull-left text-left">
+                    <a id="show-forgot-password-link" ng-click="showForgot=true">Forgot password?</a><br/>
+                    <a ui-sref2="auth.register()" id="create-account-link">Create an Account</a>
+                </span>
+                <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Signing in ...</span></span>
+                    <span ng-show="!loading">Login</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <form ng-show="showForgot" role="form" class="white-box" name="forgotForm" ng-submit="forgot()" novalidate spellcheck="false" autocomplete="on">
+        <div class="modal-body">
+            <h4 class="highlight3">Forgot Password</h4>
+            <div class="form-group">
+                <input type="email" class="form-control" name="forgotEmail" ng-model="forgotEmail" placeholder="Email" required autocomplete="on" />
+                <span id="forgot-email-required" class="text-danger" ng-show="forgotForm.forgotEmail.$error.required && forgotAttempted">
+                    Email is required.
+                </span>
+                <span id="forgot-email-invalid" class="text-danger" ng-show="forgotForm.forgotEmail.$error.email && forgotAttempted">
+                    Email is invalid.
+                </span>
+            </div>
+            <div class="form-group text-right">
+                <span class="pull-left"><a class="navbar" ng-click="showForgot=false">Nevermind, I remembered!</a></span>
+                <button type="submit" class="btn btn-primary" ng-class="{ disabled: loading }">
+                    <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Resolving the Issue ...</span></span>
+                    <span ng-show="!loading">Send me help</span>
+                </button>
+            </div>
+         </div>
+    </form>
+
+</div>

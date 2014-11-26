@@ -1,0 +1,69 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" navbar-toggle>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only" translate>Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><i class="fa fa-cloud"></i> secxbrl.info</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse" ng-class="{collapse: isCollapsed}" id="navbar-collapse">
+            <div>
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active2="active"><a ui-sref2="home.api()" id="api-link" class="menu-item" translate>API</a></li>
+                </ul>
+            </div>
+            <account></account>
+        </div>
+    </div>
+</nav>
+<div class="wrapper">
+    <div ui-view></div>
+</div>
+<footer>
+    <div class="container">
+        <ul class="row list-unstyled">
+            <li class="col-sm-6">
+                <h4>Get in touch</h4>
+                <h4><a href="mailto:hello@28.io">hello@28.io</a></h4>
+            </li>
+            <li class="col-sm-3">
+                <h4>Platform</h4>
+                <ul>
+                    <li>
+                        <a href="http://28.io" target="_blank">28.io</a>
+                    </li>
+                </ul>
+                <h4>Open Source</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a href="http://www.jsoniq.org/" target="_blank">JSONiq</a>
+                    </li>
+                    <li>
+                        <a href="http://zorba.io/" target="_blank">Zorba Query Processor</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="col-sm-3">
+                <h4>Follow Us</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="https://github.com/28msec"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/28msec"><i class="fa fa-twitter"></i></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p class="text-center copyright">
+            <small>
+                ©&nbsp;2013 28msec. All rights reserved.
+            </small>
+        </p>
+    </div>
+</footer>

@@ -1,0 +1,23 @@
+.flex-display {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -ms-flex;
+    display: flex;
+    .flex-direction(column);
+}
+
+.flex-direction(@direction: row) {
+  -webkit-flex-direction: @direction;
+     -moz-flex-direction: @direction;
+      -ms-flex-direction: @direction;
+          flex-direction: @direction;
+}
+
+.flex-grow(@proportion) {
+    -webkit-box-flex: @proportion;
+    -webkit-flex-grow: @proportion;
+    -ms-flex-positive: @proportion;
+    flex-grow: @proportion;
+}

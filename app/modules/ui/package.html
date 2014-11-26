@@ -1,0 +1,45 @@
+<div class="pricing" ng-class="colClass(offset)">
+    <div class="plan" id="{{id}}" ng-if="align !== 'vertical'">
+        <p class="symbol">
+            <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-{{package.symbol}} fa-stack-1x fa-light"></i>
+            </span>
+        </p>
+        <h2 ng-bind="package.name"></h2>
+        <p class="text-center text-color" ng-bind="package.description"></p>
+        <ul class="list-unstyled plus">
+            <li ng-repeat="include in package.includes track by $index">
+                <span ng-if="include !== null">  <i class="fa fa-check"></i> <span ng-bind="include"></span></span>
+                <span ng-if="include === null">  &nbsp;</span>
+            </li>
+        </ul>
+        <hr />
+        <p class="text-center"><a href="{{buttonhref}}" class="btn {{buttonclass}} btn-lg" ng-bind="buttontext"></a></p>
+    </div>
+
+    <div class="plan row" id="{{id}}" ng-if="align === 'vertical'">
+        <div class="col-sm-6">
+            <p class="vsymbol">
+                <span class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-{{package.symbol}} fa-stack-1x fa-light"></i>
+                </span>
+            </p>
+            <h2 ng-bind="package.name"></h2>
+            <p class="text-center text-color" ng-bind="package.description"></p>
+        </div>
+        <div class="col-sm-6">
+            <ul class="list-unstyled plus vlist">
+                <li ng-repeat="include in package.includes track by $index">
+                    <span ng-if="include !== null">  <i class="fa fa-check"></i> <span ng-bind="include"></span></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12">
+            <hr />
+            <p class="text-center"><a href="{{buttonhref}}" class="btn {{buttonclass}} btn-lg" ng-bind="buttontext"></a></p>
+        </div>
+
+    </div>
+</div>

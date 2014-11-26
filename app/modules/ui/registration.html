@@ -1,0 +1,60 @@
+<div id="registration" class="modal-dialog inlined-modal">
+    <form role="form" class="white-box" name="registerForm" ng-submit="register()" novalidate spellcheck="false" autocomplete="on">
+        <div class="modal-body">
+            <h3>Full Data API Access - in less than 2 minutes - free for non-commercial use.</h3>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" name="firstname" ng-model="firstname" placeholder="First Name" required autocomplete="on" />
+                    <span id="firstname-required" class="text-danger" ng-show="registerForm.firstname.$error.required && registerAttempted">
+                        First Name is required.
+                    </span>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" name="lastname" ng-model="lastname" placeholder="Last Name" required autocomplete="on" />
+                    <span id="lastname-required" class="text-danger" ng-show="registerForm.lastname.$error.required && registerAttempted">
+                        Last Name is required.
+                    </span>
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email" required autocomplete="on" ng-change="registerForm.email.$setValidity('inuse', true);" />
+                    <span id="email-in-use" class="text-danger" ng-show="registerForm.email.$error.inuse && registerAttempted">
+                        A user with the same email address is already registered.
+                    </span>
+                    <span id="email-required" class="text-danger" ng-show="registerForm.email.$error.required && registerAttempted">
+                        Email is required.
+                    </span>
+                    <span id="email-invalid" class="text-danger" ng-show="registerForm.email.$error.email && registerAttempted">
+                        Email is invalid.
+                    </span>
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="password" class="form-control" name="password" ng-model="password" placeholder="Password" required autocomplete="on" ng-minlength="5" />
+                    <span id="password-required" class="text-danger" ng-show="registerForm.password.$error.required && registerAttempted">
+                        Password is required.
+                    </span>
+                    <span id="password-too-short" class="text-danger" ng-show="registerForm.password.$error.minlength && registerAttempted">
+                        Password must exceed 5 characters.
+                    </span>
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" ng-model="passwordRepeat" placeholder="Confirm Password" required autocomplete="on" equals="{{password}}" />
+                    <span id="confirmation-required" class="text-danger" ng-show="registerForm.passwordRepeat.$error.required && registerAttempted">
+                        Password confirmation is required.
+                    </span>
+                    <span id="passwords-dont-match" class="text-danger" ng-show="!registerForm.password.$error.minlength && !registerForm.passwordRepeat.$error.required && registerForm.passwordRepeat.$error.equals && registerAttempted">
+                        Password confirmation doesn't match.
+                    </span>
+                </div>
+                <div class="form-group text-right col-md-12">
+                    <span class="pull-left" ng-show="hideAlreadyHaveAnAccount !== 'true'">
+                        <a ui-sref2="auth.login()" id="login-link">Already have an Account?</a>
+                    </span>
+                    <button type="submit" class="btn btn-primary pull-right" ng-class="{ disabled: loading }">
+                        <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Signing up ...</span></span>
+                        <span ng-show="!loading">Register</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
