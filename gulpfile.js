@@ -15,6 +15,7 @@ require('./tasks/html');
 require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
+require('./tasks/e2e');
 
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
@@ -100,11 +101,16 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('serve-dist', ['build'], function () {
+var modRewrite = require('connect-modrewrite');
+var rewriteRules = [
+  '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
+];
+
+gulp.task('server:dist', ['build'], function () {
   var connect = require('connect');
   var serveStatic = require('serve-static');
 
-  var app = connect().use(serveStatic(Config.paths.dist));
+  var app = connect().use(modRewrite(rewriteRules)).use(serveStatic(Config.paths.dist));
 
   require('http').createServer(app)
     .listen(9000)
@@ -113,7 +119,7 @@ gulp.task('serve-dist', ['build'], function () {
     });
 });
 
-gulp.task('serve-dev', ['less'], function () {
+gulp.task('server:dev', ['less'], function () {
   var connect = require('connect');
   var serveStatic = require('serve-static');
 
@@ -125,7 +131,11 @@ gulp.task('serve-dev', ['less'], function () {
       console.log('Started connect web server on http://localhost:9000');
     });
 });
-gulp.task('serve', ['serve-dev']);
+gulp.task('serve', ['server:dev']);
+
+gulp.task('test', ['serve:dist'], function (done) {
+  return $.runSequence('test:e2e', done);
+});
 
 gulp.task('default', ['build']);
 
