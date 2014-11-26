@@ -10,16 +10,13 @@ var sh = require('shelljs');
 
 var Config = require('./tasks/config');
 
-var browserSync = require('browser-sync');
-//var reload = browserSync.reload;
-
-
 require('./tasks/lint');
 require('./tasks/html');
 require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/e2e');
+require('./tasks/server');
 
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
@@ -105,52 +102,15 @@ gulp.task('build', ['clean', 'swagger'], function(done){
   $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
-var modRewrite = require('connect-modrewrite');
-var rewriteRules = [
-  '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
-];
-
-gulp.task('server:dist', ['build'], function() {
-  browserSync({
-    port: 9000,
-    notify: false,
-    logPrefix: 'www.secxbrl.info',
-    server: {
-      baseDir: ['dist'],
-      middleware: [
-        modRewrite(rewriteRules)
-      ]
-    }
-  });
+gulp.task('server', ['less'], function(){
+  $.runSequence('server:dev');
 });
 
-//run the server after having built generated files, and watch for changes
-gulp.task('server:dev', ['less'], function() {
-  browserSync({
-    port: 9000,
-    notify: false,
-    logPrefix: 'www.secxbrl.info',
-    server: {
-      baseDir: ['.', Config.paths.app],
-      middleware: [
-        modRewrite(rewriteRules)
-      ]
-    },
-    browser: 'default'
-  });
-
-  /*
-  gulp.watch(config.html, reload);
-  gulp.watch(config.scss, ['sass', reload]);
-  gulp.watch(config.js, ['jshint']);
-  gulp.watch(config.tpl, ['templates', reload]);
-  gulp.watch(config.assets, reload);
-  */
+gulp.task('server:prod', ['build'], function(){
+  $.runSequence('server:dist');
 });
 
-gulp.task('server', ['server:dev']);
-
-gulp.task('test', ['server:dist'], function (done) {
+gulp.task('test', ['server:prod'], function (done) {
   return $.runSequence('test:e2e', done);
 });
 
