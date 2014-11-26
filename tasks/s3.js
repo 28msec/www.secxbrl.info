@@ -7,7 +7,7 @@ var _ = require('lodash');
 var Q = require('q');
 var AWS = require('aws-sdk');
 var awspublish = require('gulp-awspublish');
-var parallelize = require("concurrent-transform");
+var parallelize = require('concurrent-transform');
 var minimist = require('minimist');
 
 var knownOptions = {
@@ -16,8 +16,6 @@ var knownOptions = {
 };
 
 var Config = require('./config');
-
-//var headers = {};
 
 var s3, key, secret, region, bucketName, config, publisher, buildId;
 
@@ -83,8 +81,8 @@ var listObjects = function (idempotent, prefix, marker, contents) {
             var objects = (contents) ? contents.concat(list.Contents) : list.Contents;
 
             if (list.IsTruncated) {
-                var new_marker = _.last(list.Contents).Key;
-                listObjects(idempotent, prefix, new_marker, objects);
+                var newMarker = _.last(list.Contents).Key;
+                listObjects(idempotent, prefix, newMarker, objects);
             } else {
                 defered.resolve(_.uniq(objects, function (o) { return o.Key; }));
             }

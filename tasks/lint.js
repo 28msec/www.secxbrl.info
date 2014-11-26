@@ -8,19 +8,16 @@ var map = require('map-stream');
 var Config = require('./config');
 
 gulp.task('jslint', function(){
-    var jshint = require('gulp-jshint');
-    return gulp.src(Config.paths.js.concat(['!app/modules/*-api.js']))
-        .pipe(jshint())
-        .pipe(jshint.reporter())
-        .pipe(jshint.reporter('fail'));
+    return gulp.src(Config.paths.js.concat(Config.paths.tasks).concat(['!app/modules/*-api.js']))
+        .pipe($.jshint())
+        .pipe($.jshint.reporter())
+        .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('jsonlint', function(){
-    var jsonlint = require('gulp-jsonlint');
-
     return gulp.src(Config.paths.json)
-        .pipe(jsonlint())
-        .pipe(jsonlint.reporter())
+        .pipe($.jsonlint())
+        .pipe($.jsonlint.reporter())
         .pipe(map(function(file, cb) {
             if (!file.jsonlint.success) {
                 process.exit(1);

@@ -1,0 +1,3 @@
+app/modules/*-api.js
+app/modules/translations.js
+app/modules/state-directives.js
