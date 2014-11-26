@@ -10,6 +10,10 @@ var sh = require('shelljs');
 
 var Config = require('./tasks/config');
 
+var browserSync = require('browser-sync');
+//var reload = browserSync.reload;
+
+
 require('./tasks/lint');
 require('./tasks/html');
 require('./tasks/images');
@@ -106,34 +110,47 @@ var rewriteRules = [
   '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
 ];
 
-gulp.task('server:dist', ['build'], function () {
-  var connect = require('connect');
-  var serveStatic = require('serve-static');
-
-  var app = connect().use(modRewrite(rewriteRules)).use(serveStatic(Config.paths.dist));
-
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
-    });
+gulp.task('server:dist', ['build'], function() {
+  browserSync({
+    port: 9000,
+    notify: false,
+    logPrefix: 'www.secxbrl.info',
+    server: {
+      baseDir: ['dist'],
+      middleware: [
+        modRewrite(rewriteRules)
+      ]
+    }
+  });
 });
 
-gulp.task('server:dev', ['less'], function () {
-  var connect = require('connect');
-  var serveStatic = require('serve-static');
+//run the server after having built generated files, and watch for changes
+gulp.task('server:dev', ['less'], function() {
+  browserSync({
+    port: 9000,
+    notify: false,
+    logPrefix: 'www.secxbrl.info',
+    server: {
+      baseDir: ['.', Config.paths.app],
+      middleware: [
+        modRewrite(rewriteRules)
+      ]
+    },
+    browser: 'default'
+  });
 
-  var app = connect().use(serveStatic(Config.paths.app)).use(serveStatic('.'));
-
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
-    });
+  /*
+  gulp.watch(config.html, reload);
+  gulp.watch(config.scss, ['sass', reload]);
+  gulp.watch(config.js, ['jshint']);
+  gulp.watch(config.tpl, ['templates', reload]);
+  gulp.watch(config.assets, reload);
+  */
 });
-gulp.task('serve', ['server:dev']);
 
-gulp.task('test', ['serve:dist'], function (done) {
+gulp.task('server', ['server:dev']);
+
+gulp.task('test', ['server:dist'], function (done) {
   return $.runSequence('test:e2e', done);
 });
 
