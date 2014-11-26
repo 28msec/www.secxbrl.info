@@ -82,6 +82,10 @@ gulp.task('copy-swagger', function(){
   return gulp.src('swagger/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/swagger'));
 });
 
+gulp.task('copy-svg', function(){
+  return gulp.src(Config.paths.svgs, { dot: true }).pipe(gulp.dest(Config.paths.dist + '/images'));
+});
+
 gulp.task('extras', function () {
   var extras = Config.paths.html.concat(Config.paths.fonts);
   return gulp.src(extras, { dot: true })
@@ -93,7 +97,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean', 'swagger'], function(done){
-  $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'extras'], done);
+  $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
 });
 
 gulp.task('serve-dist', ['build'], function () {
