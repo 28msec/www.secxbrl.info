@@ -10,19 +10,19 @@ gulp.task('swagger', function(done){
     var apis = [
         {
             swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/queries.json',
-            moduleName: 'queries',
+            moduleName: 'queries-api',
             className: 'QueriesAPI'
         }, {
             swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/session.json',
-            moduleName: 'session',
+            moduleName: 'session-api',
             className: 'SessionAPI'
         }, {
             swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/users.json',
-            moduleName: 'users',
+            moduleName: 'users-api',
             className: 'UsersAPI'
         }, {
           swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/billing.json',
-          moduleName: 'billing',
+          moduleName: 'billing-api',
           className: 'BillingAPI'
         }
     ];
@@ -39,8 +39,9 @@ gulp.task('swagger', function(done){
             } else {
                 var swagger = JSON.parse(body);
                 var source = CodeGen.getAngularCode({ moduleName: api.moduleName, className: api.className, swagger: swagger });
-                console.log('Generated ' + api.moduleName + '-api.js from ' + api.swagger);
-                fs.writeFileSync(dest + '/' + api.moduleName + '-api.js', source, 'UTF-8');
+                console.log('Generated ' + api.moduleName + '.js from ' + api.swagger);
+                fs.writeFileSync(dest + '/' + api.moduleName + '.js', source, 'UTF-8');
+                fs.writeFileSync('swagger/' + api.swagger.substring(api.swagger.lastIndexOf('/') + 1), body, 'UTF-8');
                 deferred.resolve();
             }
         });

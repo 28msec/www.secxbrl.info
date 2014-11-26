@@ -2,6 +2,7 @@
 .idea
 .DS_Store
 *~
+*.swp
 credentials.json
 
 # package control
@@ -17,5 +18,6 @@ dist
 
 #swagger generated files
 app/modules/*-api.js
+swagger/*.json
 
 # test

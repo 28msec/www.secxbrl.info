@@ -88,7 +88,7 @@ gulp.task('build', ['clean'], function(done){
   $.runSequence(['load-config', 'lint', 'swagger', 'html', 'images', 'extras'], done);
 });
 
-gulp.task('serve', ['build'], function () {
+gulp.task('serve-dist', ['build'], function () {
   var connect = require('connect');
   var serveStatic = require('serve-static');
 
@@ -100,6 +100,20 @@ gulp.task('serve', ['build'], function () {
       console.log('Started connect web server on http://localhost:9000');
     });
 });
+
+gulp.task('serve-dev', ['build'], function () {
+  var connect = require('connect');
+  var serveStatic = require('serve-static');
+
+  var app = connect().use(serveStatic('app')).use(serveStatic('.'));
+
+  require('http').createServer(app)
+    .listen(9000)
+    .on('listening', function () {
+      console.log('Started connect web server on http://localhost:9000');
+    });
+});
+gulp.task('serve', ['serve-dev']);
 
 gulp.task('default', ['build']);
 
