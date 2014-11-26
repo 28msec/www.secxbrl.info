@@ -26,7 +26,7 @@ var init = function() {
     key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
-    bucketName = Config.isOnProduction ? 'disclosures.secxbrl.info' : 'secdisclosures-' + buildId;
+    bucketName = Config.isOnProduction ? 'www.secxbrl.info' : 'www.secxbrl.info-' + buildId;
     $.util.log('Bucket Name: ' + bucketName);
     config = {
         accessKeyId: key,

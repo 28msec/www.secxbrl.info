@@ -2,7 +2,7 @@
 .idea
 .DS_Store
 *~
-.sass-cache
+credentials.json
 
 # package control
 node_modules
@@ -12,7 +12,10 @@ bower_components
 npm-debug.log
 
 # build
-build/tmp
-build/dist
+.tmp
+dist
 
-#test
+#swagger generated files
+app/modules/*-api.js
+
+# test

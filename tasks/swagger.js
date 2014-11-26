@@ -17,12 +17,16 @@ gulp.task('swagger', function(done){
             moduleName: 'session',
             className: 'SessionAPI'
         }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/reports.json',
-            moduleName: 'reports',
-            className: 'ReportsAPI'
+            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/users.json',
+            moduleName: 'users',
+            className: 'UsersAPI'
+        }, {
+          swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/billing.json',
+          moduleName: 'billing',
+          className: 'BillingAPI'
         }
     ];
-    var dest = 'www/modules';
+    var dest = 'app/modules';
     var promises = [];
     apis.forEach(function(api){
         var deferred = Q.defer();

@@ -51,7 +51,7 @@ gulp.task('load-config', ['decrypt'], function(done){
 });
 
 gulp.task('watch', function() {
-  return gulp.watch(Config.paths.sass, ['sass']);
+  return gulp.watch(Config.paths.less, ['less']);
 });
 
 gulp.task('install', ['git-check'], function() {

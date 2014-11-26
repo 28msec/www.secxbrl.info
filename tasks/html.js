@@ -2,26 +2,22 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var sass = require('gulp-ruby-sass');
 
 var Config = require('./config');
 
-gulp.task('sass', function() {
-    return gulp.src('./scss/ionic.app.scss')
-        .pipe(sass({ loadPath: '.' }))
-        .pipe(gulp.dest('./www/css/'))
-        .pipe($.minifyCss({
-            keepSpecialComments: 0
-        }))
-        .pipe($.rename({ extname: '.min.css' }))
-        .pipe(gulp.dest('./www/css/'));
+gulp.task('less', function () {
+  gulp.src('app/styles/index.less')
+    .pipe($.less({
+      paths: [ ]
+    }))
+    .pipe(gulp.dest('app/styles'));
 });
 
-gulp.task('html', ['sass'], function () {
+gulp.task('html', ['less'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
-    var assets = $.useref.assets({searchPath: '{.tmp,www}'});
-    return gulp.src('www/*.html')
+    var assets = $.useref.assets({searchPath: '{' + Config.paths.root + ',' + Config.paths.tmp + '}'});
+    return gulp.src(Config.paths.index)
         .pipe(assets)
         .pipe(jsFilter)
         //.pipe($.uglify())

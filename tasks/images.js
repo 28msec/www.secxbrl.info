@@ -6,7 +6,7 @@ var $ = require('gulp-load-plugins')();
 var Config = require('./config');
 
 gulp.task('images', function () {
-    return gulp.src('www/images/**/*')
+    return gulp.src(Config.paths.images)
         .pipe($.cache($.imagemin({
             optimizationLevel: 3,
             progressive: true,

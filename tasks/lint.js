@@ -9,7 +9,7 @@ var Config = require('./config');
 
 gulp.task('jslint', function(){
     var jshint = require('gulp-jshint');
-    return gulp.src(Config.paths.js.concat(['!www/modules/*-api.js']))
+    return gulp.src(Config.paths.js.concat(['!app/modules/*-api.js']))
         .pipe(jshint())
         .pipe(jshint.reporter())
         .pipe(jshint.reporter('fail'));
