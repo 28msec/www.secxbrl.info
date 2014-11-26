@@ -8,8 +8,9 @@ module.exports = {
     isOnProduction: isOnTravisAndMaster,
     paths: {
         json: ['*.json'],
-        js: ['gulpfile.js', 'www/**/*.js', '!www/lib/**/*.js'],
-        sass: ['./scss/**/*.scss'],
+        js: ['gulpfile.js', 'app/**/*.js', '!app/lib/**/*.js'],
+        html: ['app/**/*.html'],
+        fonts: ['app/**/*.ttf', 'app/**/*.woff'],
         credentials: 'credentials.json',
         dist: 'dist/**/*'
     },

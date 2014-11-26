@@ -2,15 +2,15 @@ language: node_js
 node_js:
 - '0.10'
 install:
-  - gem install sass
-  - npm install -g bower gulp
-  - npm install
-  - bower install
+- gem install sass
+- npm install -g bower gulp
+- npm install
+- bower install
 script:
 - gulp setup
 after_script:
-# teardown will work only for ci not for prod or on master
 - gulp teardown
 env:
   global:
-    - RANDOM_ID=$RANDOM
+  - RANDOM_ID=$RANDOM
+  - secure: jAu1cH1NOr618EFngvxgkvGQeRMYBpzSxM9NDbx7m6jy6h+KNE4YrBnsAi9gFIXw9GbJadO7LO5hF9V83pUt0mqeWxUwmEcGKyGiu2JB41duotLhNV+JckTZrPL75FWLL8RtEo7us/87H52vlkT6M4uuMDVJWHZK5irsudVPxHI=

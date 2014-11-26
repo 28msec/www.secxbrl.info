@@ -75,12 +75,13 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('extras', function () {
-  return gulp.src(['www/**/*.html', 'www/**/*.ttf', 'www/**/*.woff'], { dot: true })
+  var extras = Config.paths.html.concat(Config.paths.fonts);
+  return gulp.src(extras, { dot: true })
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', function () {
-  return gulp.src(['.tmp', 'dist', '.awspublish-secdisclosures-*'], { read: false }).pipe($.clean());
+  return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
 });
 
 gulp.task('build', ['clean'], function(done){
