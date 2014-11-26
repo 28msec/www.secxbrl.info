@@ -16,7 +16,7 @@ gulp.task('less', function () {
 gulp.task('html', ['less'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
-    var assets = $.useref.assets({searchPath: '{' + Config.paths.root + ',' + Config.paths.tmp + '}'});
+    var assets = $.useref.assets({ searchPath: '{' + Config.paths.app + ',' + Config.paths.tmp + '}' });
     return gulp.src(Config.paths.index)
         .pipe(assets)
         .pipe(jsFilter)

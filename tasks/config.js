@@ -7,18 +7,19 @@ module.exports = {
     isOnTravis: isOnTravis,
     isOnProduction: isOnTravisAndMaster,
     paths: {
-        root: 'app',
+        app: 'app',
+        dist: 'dist',
         tmp: '.tmp',
+
         json: ['*.json'],
         js: ['app/**/*.js', '!app/lib/**/*.js'],
         index: 'app/*.html',
         html: ['app/**/*.html'],
-        images: 'www/images/**/*',
+        images: 'app/images/**/*',
         less: 'app/**/*.less',
         fonts: ['app/**/*.ttf', 'app/**/*.woff'],
         tasks: ['gulpfile.js', 'tasks/*.js'],
-        credentials: 'credentials.json',
-        dist: 'dist/**/*'
+        credentials: 'credentials.json'
     },
     credentials: {}
 };

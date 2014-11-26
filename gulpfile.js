@@ -74,25 +74,33 @@ gulp.task('git-check', function(done) {
   done();
 });
 
+gulp.task('fonts', function(){
+  return gulp.src('bower_components/font-awesome/fonts/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/fonts'));
+});
+
+gulp.task('copy-swagger', function(){
+  return gulp.src('swagger/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/swagger'));
+});
+
 gulp.task('extras', function () {
   var extras = Config.paths.html.concat(Config.paths.fonts);
   return gulp.src(extras, { dot: true })
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(Config.paths.dist));
 });
 
 gulp.task('clean', function () {
-  return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+  return gulp.src([Config.paths.tmp, Config.paths.dist], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['clean'], function(done){
-  $.runSequence(['load-config', 'lint', 'swagger', 'html', 'images', 'extras'], done);
+gulp.task('build', ['clean', 'swagger'], function(done){
+  $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'extras'], done);
 });
 
 gulp.task('serve-dist', ['build'], function () {
   var connect = require('connect');
   var serveStatic = require('serve-static');
 
-  var app = connect().use(serveStatic('dist'));
+  var app = connect().use(serveStatic(Config.paths.dist));
 
   require('http').createServer(app)
     .listen(9000)
@@ -101,11 +109,11 @@ gulp.task('serve-dist', ['build'], function () {
     });
 });
 
-gulp.task('serve-dev', ['build'], function () {
+gulp.task('serve-dev', ['less'], function () {
   var connect = require('connect');
   var serveStatic = require('serve-static');
 
-  var app = connect().use(serveStatic('app')).use(serveStatic('.'));
+  var app = connect().use(serveStatic(Config.paths.app)).use(serveStatic('.'));
 
   require('http').createServer(app)
     .listen(9000)
