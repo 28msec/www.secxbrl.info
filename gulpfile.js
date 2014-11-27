@@ -4,8 +4,6 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var bower = require('bower');
 var sh = require('shelljs');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 
 var Config = require('./tasks/config');
 
@@ -79,11 +77,6 @@ gulp.task('server:prod', ['build'], function(){
 gulp.task('test', ['server:prod'], function (done) {
   return $.runSequence('test:e2e', done);
 });
-
-gulp.watch(Config.paths.html, reload);
-gulp.watch(Config.less, ['less', reload]);
-gulp.watch(Config.paths.js, reload);
-gulp.watch(Config.paths.json, ['jsonlint']);
 
 gulp.task('default', ['build']);
 

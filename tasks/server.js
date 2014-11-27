@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var Config = require('./config');
 
 var browserSync = require('browser-sync');
+var reload = browserSync.reload;
 
 var modRewrite = require('connect-modrewrite');
 var rewriteRules = [
@@ -39,4 +40,9 @@ gulp.task('server:dev', function() {
     },
     browser: 'default'
   });
+
+  gulp.watch(Config.paths.html, reload);
+  gulp.watch(Config.less, ['less', reload]);
+  gulp.watch(Config.paths.js, reload);
+  gulp.watch(Config.paths.json, ['jsonlint']);
 });
