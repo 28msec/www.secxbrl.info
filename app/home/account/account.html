@@ -1,22 +1,22 @@
 <div>
     <div class="menu">
         <div class="container">
-            <h4 translate>Account Management</h4>
+            <h4>Account Management</h4>
             <div class="btn-group">
                 <a class="btn btn-default" ng-class="{ active: subActive === 'info' }" ui-sref="home.account.profile()">
-                    <i class="fa fa-user"></i> <span translate>Profile</span>
+                    <i class="fa fa-user"></i> <span>Profile</span>
                 </a>
                 <a class="btn btn-default" ng-class="{ active: subActive === 'stats' }" ui-sref="home.account.stats()">
                     <i class="fa fa-dashboard"></i> <span>Statistics</span>
                 </a>
                 <a class="btn btn-default" ng-class="{ active: subActive === 'password' }" ui-sref="home.account.password()">
-                    <i class="fa fa-lock"></i> <span translate>Password</span>
+                    <i class="fa fa-lock"></i> <span>Password</span>
                 </a>
                 <a class="btn btn-default" ng-class="{ active: subActive === 'tokens' }" ui-sref="home.account.tokens()">
-                    <i class="fa fa-cloud"></i> <span translate>API Tokens</span>
+                    <i class="fa fa-cloud"></i> <span>API Tokens</span>
                 </a>
                 <a class="btn btn-default" ng-show="isAuthorizedStatisticsUsage" ng-class="{ active: subActive === 'statistics_usage' }" ui-sref="home.account.statistics_usage()">
-                    <i class="fa fa-tachometer"></i> API Usage
+                    <i class="fa fa-tachometer"></i> <span>API Usage</span>
                 </a>
             </div>
         </div>

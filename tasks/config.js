@@ -10,14 +10,13 @@ module.exports = {
         app: 'app',
         dist: 'dist',
         tmp: '.tmp',
-
         json: ['*.json'],
-        js: ['app/**/*.js', '!app/lib/**/*.js'],
+        js: ['app/**/*.js'],
         index: 'app/*.html',
         html: ['app/**/*.html'],
         images: 'app/images/**/*.{gif,jpg,png}',
         svgs: 'app/images/**/*.svg',
-        less: 'app/**/*.less',
+        less: ['app/**/*.less'],
         fonts: ['app/**/*.ttf', 'app/**/*.woff'],
         tasks: ['gulpfile.js', 'tasks/*.js'],
         credentials: 'credentials.json'

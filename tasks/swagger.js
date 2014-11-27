@@ -3,6 +3,14 @@
 var fs = require('fs');
 var gulp = require('gulp');
 
+var mkdirSync = function (path) {
+  try {
+    fs.mkdirSync(path);
+  } catch(e) {
+    if ( e.code !== 'EEXIST' ) { throw e; }
+  }
+};
+
 gulp.task('swagger', function(done){
     var request = require('request');
     var Q = require('q');
@@ -30,6 +38,7 @@ gulp.task('swagger', function(done){
     var promises = [];
     apis.forEach(function(api){
         var deferred = Q.defer();
+        mkdirSync('swagger');
         request({
             uri: api.swagger,
             method: 'GET'
