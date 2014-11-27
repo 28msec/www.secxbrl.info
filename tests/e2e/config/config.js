@@ -6,7 +6,7 @@ var credentials = JSON.parse(fs.readFileSync('credentials.json', 'utf-8'));
 exports.config = {
     testUser: credentials['28'].user.login,
     testPassword: credentials['28'].user.password,
-    environment: 'dev',
+    environment: 'prod',
     e2eReportsDir: '/tmp/e2e-reports',
     allowRegistration: true
 };
