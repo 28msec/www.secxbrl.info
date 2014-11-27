@@ -3,6 +3,9 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
+var browserSync = require('browser-sync');
+
+
 /* jshint camelcase:false*/
 //var webdriverStandalone = require('gulp-protractor').webdriver_standalone;
 var webdriverUpdate = require('gulp-protractor').webdriver_update;
@@ -30,5 +33,8 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
     }))
     .on('error', function(e) {
       throw e;
+    })
+    .on('end', function(){
+      browserSync.exit();
     });
 });
