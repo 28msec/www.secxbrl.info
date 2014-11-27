@@ -10,7 +10,6 @@ module.exports = {
         app: 'app',
         dist: 'dist',
         tmp: '.tmp',
-
         json: ['*.json'],
         js: ['app/**/*.js', '!app/lib/**/*.js'],
         index: 'app/*.html',

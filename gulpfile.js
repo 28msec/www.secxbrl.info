@@ -1,7 +1,5 @@
 'use strict';
 
-var fs = require('fs');
-
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
@@ -17,40 +15,7 @@ require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/e2e');
 require('./tasks/server');
-
-gulp.task('env-check', function(done){
-  if(process.env.TRAVIS_SECRET_KEY === undefined) {
-    console.error('environment variable TRAVIS_SECRET_KEY is not set.');
-    process.exit(1);
-  }
-  done();
-});
-
-gulp.task('encrypt', ['env-check'], function(){
-  if(fs.existsSync('credentials.json')) {
-    $.runSequence('encrypt-force');
-  } else {
-    console.error('credentials.json is not found.');
-    process.exit(1);
-  }
-});
-
-gulp.task('decrypt', ['env-check'], function(){
-  if(!fs.existsSync('credentials.json')) {
-    $.runSequence('decrypt-force');
-  } else {
-    $.util.log('credentials.json exists already, do nothing');
-  }
-});
-
-gulp.task('encrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json -out credentials.json.enc'));
-gulp.task('decrypt-force', ['env-check'], $.shell.task('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in credentials.json.enc -out credentials.json -d'));
-
-gulp.task('load-config', ['decrypt'], function(done){
-  var fs = require('fs');
-  Config.credentials = JSON.parse(fs.readFileSync(Config.paths.credentials, 'utf-8'));
-  done();
-});
+require('./tasks/ci');
 
 gulp.task('watch', function() {
   return gulp.watch(Config.paths.less, ['less']);
