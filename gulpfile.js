@@ -12,8 +12,7 @@ require('./tasks/html');
 require('./tasks/images');
 require('./tasks/swagger');
 require('./tasks/s3');
-require('./tasks/e2e');
-require('./tasks/server');
+require('./tasks/tests');
 require('./tasks/ci');
 
 gulp.task('watch', function() {
