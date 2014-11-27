@@ -2,5 +2,4 @@
 
 angular.module('secxbrl')
 .controller('HomeCtrl', function(){
-
 });
