@@ -1,30 +1,30 @@
 <div class="container export">
-    <h2 class="text-center" translate>Profile Information</h2>
+    <h2 class="text-center">Profile Information</h2>
     <form role="form" class="col-lg-6 col-md-8 col-sm-12 col-lg-offset-3 col-md-offset-2" name="updateProfileForm" ng-submit="update()" novalidate spellcheck="false" autocomplete="on">
         <fieldset>
             <div class="form-group">
-                <label for="firstname" translate>First Name</label>
+                <label for="firstname">First Name</label>
                 <input type="text" class="form-control"
                        id="firstname" name="firstname" placeholder="First Name" ng-model="firstname" virgin required>
                 <span class="text-danger"
-                      ng-show="updateProfileForm.firstname.$error.required && (updateProfileForm.firstname.$dirty || attempted)" translate>
+                      ng-show="updateProfileForm.firstname.$error.required && (updateProfileForm.firstname.$dirty || attempted)">
                       First Name is required.
                 </span>
             </div>
             <div class="form-group">
-                <label for="lastname" translate>Last Name</label>
+                <label for="lastname">Last Name</label>
                 <input type="text" class="form-control"
                        id="lastname" name="lastname" placeholder="Last Name" ng-model="lastname" virgin required>
                 <span class="text-danger"
-                      ng-show="updateProfileForm.lastname.$error.required && (updateProfileForm.lastname.$dirty || attempted)" translate>
+                      ng-show="updateProfileForm.lastname.$error.required && (updateProfileForm.lastname.$dirty || attempted)">
                       Last Name is required.
                 </span>
             </div>
             <button type="submit" class="btn btn-default btn-primary" ng-class="{ disabled: loading }">
-                <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span translate>Updating Profile...</span></span>
-                <span ng-show="!loading" translate>Update Profile</span>
+                <span ng-show="loading"><i class="fa fa-spinner fa-spin"></i> <span>Updating Profile...</span></span>
+                <span ng-show="!loading">Update Profile</span>
             </button>
-            <button type="button" class="btn btn-default" ng-click="reset()" translate>Reset</button>
+            <button type="button" class="btn btn-default" ng-click="reset()">Reset</button>
         </fieldset>
     </form>
 </div>

@@ -1,5 +1,5 @@
 <div ng-show="loading && entries.length == 0">
-    <h1 class="text-center" translate>Loading</h1>
+    <h1 class="text-center">Loading</h1>
     <h1 class="text-center"><i class="icon-spinner icon-spin icon-large"></i></h1>
 </div>
 <div ng-show="!loading && entries.length == 0">
@@ -11,11 +11,11 @@
         <div class="row">
             <div class="col-lg-4">
                 <h3><a ng-href="/blog{{entry.id}}" ng-bind="entry.title"></a></h3>
-                <p class="date" translate>Posted {{formatDate(entry.updated)}} ago</p>
+                <p class="date">Posted {{formatDate(entry.updated)}} ago</p>
             </div>
             <div class="col-lg-8">
                 <p ng-bind="entry.summary"></p>
-                <p><a ng-href="/blog{{entry.id}}" translate>Read more →</a></p>
+                <p><a ng-href="/blog{{entry.id}}">Read more →</a></p>
             </div>
         </div>
         <hr>
