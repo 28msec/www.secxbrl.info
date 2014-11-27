@@ -17,6 +17,7 @@ gulp.task('server:dist', function() {
     port: 9000,
     notify: false,
     logPrefix: 'www.secxbrl.info',
+    open: false,
     server: {
       baseDir: ['dist'],
       middleware: [
