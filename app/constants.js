@@ -5,7 +5,7 @@ angular.module("constants", [])
 
 .constant("APPNAME", "secxbrl")
 
-.constant("API_URL", "http://secxbrl-landing-page3.28.io/v1")
+.constant("API_URL", "http://secxbrl.28.io/v1")
 
 .constant("DEBUG", true)
 
