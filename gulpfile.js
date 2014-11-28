@@ -80,8 +80,12 @@ gulp.task('test', ['server:prod'], function (done) {
 gulp.task('default', ['build']);
 
 gulp.task('setup', function(done){
-  $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', done);
+  $.runSequence('build', 'server:dist', 's3-setup', done);
 });
+
+gulp.task('test', function(done){
+  return $.runSequence('test', done);
+})
 
 gulp.task('teardown', ['load-config'], function(){
   return gulp.start('s3-teardown');
