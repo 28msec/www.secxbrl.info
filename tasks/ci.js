@@ -16,16 +16,16 @@ var msgs = {
 };
 
 var cmds = {
-  encrypt: _.template('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %> -out <%= file %>.enc')(tplParam),
-  decrypt: _.template('openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %>.enc -out <%= file %> -d')(tplParam)
+  encrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %> -out <%= file %>.enc"')(tplParam),
+  decrypt: _.template('sh -c "openssl aes-256-cbc -k $TRAVIS_SECRET_KEY -in <%= file %>.enc -out <%= file %> -d"')(tplParam)
 };
 
 gulp.task('env-check', function(done){
   if(process.env.TRAVIS_SECRET_KEY === undefined) {
-    console.error('environment variable TRAVIS_SECRET_KEY is not set.');
-    process.exit(1);
+      done('environment variable TRAVIS_SECRET_KEY is not set.');
+  }else {
+      done();
   }
-  done();
 });
 
 gulp.task('encrypt', ['env-check'], function(){
