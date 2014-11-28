@@ -10,7 +10,7 @@ var reload = browserSync.reload;
 
 var modRewrite = require('connect-modrewrite');
 var rewriteRules = [
-  '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg /index.html [L]'
+  '!\\.html|\\.xml|\\images|\\.js|\\.css|\\.png|\\.jpg|\\.woff|\\.ttf|\\.svg|\\.map /index.html [L]'
 ];
 
 gulp.task('server:dist', function() {
