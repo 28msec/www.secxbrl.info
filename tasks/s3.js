@@ -24,7 +24,7 @@ var init = function() {
     key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
-    bucketName = Config.isOnProduction ? 'www.secxbrl.info' : 'www.secxbrl.info-' + buildId;
+    bucketName = Config.isOnProduction ? 'app.secxbrl.info' : 'www.secxbrl.info-' + buildId;
     $.util.log('Bucket Name: ' + bucketName);
     config = {
         accessKeyId: key,
@@ -169,10 +169,14 @@ gulp.task('s3-setup', function() {
         .then(createBucket)
         .then(makeBucketWebsite)
         .then(function(){
-            return gulp.src('dist/**/*')
+            var defered = Q.defer();
+            gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
-                    .pipe(awspublish.reporter());
+                    .pipe(awspublish.reporter())
+                    .on('error', defered.reject)
+                    .on('end', defered.resolve);
+            return defered.promise;
         })
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');

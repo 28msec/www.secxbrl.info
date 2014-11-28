@@ -49,6 +49,8 @@ gulp.task('server:dev', function() {
   gulp.watch(Config.paths.json, ['jsonlint']);
 });
 
+gulp.task('server:stop', browserSync.exit);
+
 /* jshint camelcase:false*/
 //var webdriverStandalone = require('gulp-protractor').webdriver_standalone;
 var webdriverUpdate = require('gulp-protractor').webdriver_update;
@@ -75,9 +77,7 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
       configFile: configFile
     }))
     .on('error', function(e) {
-      throw e;
-    })
-    .on('end', function(){
+      console.error(e);
       browserSync.exit();
     });
 });
