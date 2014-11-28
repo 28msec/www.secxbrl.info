@@ -14,22 +14,24 @@ gulp.task('less', function () {
 });
 
 gulp.task('html', ['less'], function () {
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
     var assets = $.useref.assets({ searchPath: '{' + Config.paths.app + ',' + Config.paths.tmp + '}' });
     return gulp.src(Config.paths.index)
         .pipe(assets)
-        .pipe(jsFilter)
-      //.pipe($.sourcemaps.init())
-        .pipe($.ngAnnotate())
-        .pipe($.uglify())
-        //.pipe($.sourcemaps.write('maps'))
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
+        //.pipe($.sourcemaps.init())
+        .pipe($.if('**/scripts.js', $.ngAnnotate()))
+        .pipe($.if('**/scripts.js', $.uglify()))
+        .pipe($.if(Config.paths.css, $.csso()))
+        //.pipe($.if(['**/*main.js', '**/*main.css'], $.header(config.banner, { pkg: pkg })))
+        .pipe($.rev())
         .pipe(assets.restore())
         .pipe($.useref())
-        .pipe(gulp.dest('dist'))
-        .pipe($.size());
+        .pipe($.revReplace())
+        .pipe($.if('*.html', $.minifyHtml({
+            empty: true
+        })))
+        //.pipe($.sourcemaps.write())
+        .pipe(gulp.dest(Config.paths.dist))
+        .pipe($.size({
+            title: 'html'
+        }));
 });

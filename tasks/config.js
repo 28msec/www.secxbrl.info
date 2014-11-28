@@ -12,6 +12,7 @@ module.exports = {
         tmp: '.tmp',
         json: ['*.json'],
         js: ['app/**/*.js'],
+        css: ['app/**/*.css'],
         index: 'app/*.html',
         html: ['app/**/*.html'],
         images: 'app/images/**/*.{gif,jpg,png}',
