@@ -8,14 +8,13 @@ $ npm install --global gulp
 ```
 
 ##Development
+Install dependencies:
 ```bash
 $ npm install && bower install
 ```
-
 Configuration (openssl needed):
 ```bash
 $ export TRAVIS_SECRET_KEY=secret
-$ gulp decrypt
 $ gulp server
 ```
 
