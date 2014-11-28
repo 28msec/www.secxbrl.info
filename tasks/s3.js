@@ -169,10 +169,14 @@ gulp.task('s3-setup', function() {
         .then(createBucket)
         .then(makeBucketWebsite)
         .then(function(){
-            return gulp.src('dist/**/*')
+            var defered = Q.defer();
+            gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
                     .pipe(parallelize(publisher.publish(), 10))
-                    .pipe(awspublish.reporter());
+                    .pipe(awspublish.reporter())
+                    .on('error', defered.reject)
+                    .on('end', defered.resolve);
+            return defered.promise;
         })
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
