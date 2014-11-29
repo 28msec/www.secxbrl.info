@@ -19,5 +19,6 @@ dist
 #swagger generated files
 app/modules/*-api.js
 swagger/*.json
+app/styles/index.css
 
 # test

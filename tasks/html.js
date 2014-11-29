@@ -6,7 +6,7 @@ var $ = require('gulp-load-plugins')();
 var Config = require('./config');
 
 gulp.task('less', function () {
-  gulp.src('app/styles/index.less')
+  return gulp.src('app/styles/index.less')
     .pipe($.less({
       paths: [ ]
     }))
