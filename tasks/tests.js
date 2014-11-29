@@ -78,6 +78,6 @@ gulp.task('test:e2e', ['webdriver:update'], function() {
     }))
     .on('error', function(e) {
       console.error(e);
-      browserSync.exit();
+      process.exit(1);
     });
 });
