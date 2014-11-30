@@ -181,6 +181,7 @@ gulp.task('s3-setup', function() {
         .catch(function(error){
             $.util.log('Error while doing the s3 setup');
             $.util.log(error);
+            throw error;
         });
     } else {
         return gulp.src('dist/**/*')
