@@ -90,7 +90,7 @@ gulp.task('seo', function(done){
 });
 
 gulp.task('setup', function(done){
-  $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', 'seo', 'server:stop', done);
+  $.runSequence('build', 'server:dist', 's3-setup', 'seo', 'server:stop', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){

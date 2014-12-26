@@ -50,23 +50,19 @@ gulp.task('prerender', function(){
       if(error) {
         defered.reject(error);
       }
-      var document = jsdom(body);
-      var window = document.parentWindow;
-      var article = window.document.querySelector('article');
-      if(!article) {
-        if(retry < 10) {
+      if(!_.isString(body) || body.indexOf('<article ') === -1) {
+        if (retry < 10) {
           retry++;
-          $.util.log($.util.colors.yellow('Retry ' + uri + ' ' + ' (' +  response.statusCode + ') ' + retry + ' times.'));
-          req(url, retry).then(function(data){
+          $.util.log($.util.colors.yellow('Retry ' + uri + ' ' + ' (' + (response ? response.statusCode : error) + ') ' + retry + ' times.'));
+          req(url, retry).then(function (data) {
             defered.resolve(data);
-          }).catch(function(error){
+          }).catch(function (error) {
             defered.reject(error);
           });
         } else {
-          defered.reject('Couldn\'t get content for ' + uri + ' retried ' + retry + ' times. Got: ' + response.statusCode + ' ' + body);
+          defered.reject('Couldn\'t get content for ' + uri + ' retried ' + retry + ' times. Got: ' + (response ? response.statusCode : error) + ' ' + body);
         }
       } else {
-        $.util.log(uri);
         defered.resolve({
           path: path,
           body: body
