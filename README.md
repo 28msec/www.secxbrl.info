@@ -25,5 +25,5 @@ $ gulp test
 
 ##Deployment
 ```bash
-$ gulp setup
+$ gulp setup --build-id=deployment-name
 ```
