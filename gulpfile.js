@@ -81,7 +81,7 @@ gulp.task('test', ['server:prod'], function (done) {
 gulp.task('default', ['build']);
 
 gulp.task('seo', function(done){
-  if(true || Config.isOnProduction) {
+  if(Config.isOnProduction) {
     $.runSequence('prerender', 's3:upload', done);
   } else {
     $.util.log('Only perform SEO task on production.');
@@ -90,7 +90,7 @@ gulp.task('seo', function(done){
 });
 
 gulp.task('setup', function(done){
-  $.runSequence('build', 'server:dist', 's3-setup', 'seo', 'server:stop', done);
+  $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', 'seo', 'server:stop', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){
