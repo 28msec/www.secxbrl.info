@@ -180,6 +180,7 @@ gulp.task('s3-setup', function() {
         return gulp.src('dist/**/*')
             .pipe(awspublish.gzip())
             .pipe(parallelize(publisher.publish({}, { force: true }), 10))
+            .pipe(publisher.sync())
             .pipe(awspublish.reporter());
     }
 });
