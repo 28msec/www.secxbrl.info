@@ -8,23 +8,16 @@ var Q = require('q');
 var AWS = require('aws-sdk');
 var awspublish = require('gulp-awspublish');
 var parallelize = require('concurrent-transform');
-var minimist = require('minimist');
-
-var knownOptions = {
-    string: 'build-id',
-    default: { 'build-id': process.env.RANDOM_ID }
-};
 
 var Config = require('./config');
 
-var s3, key, secret, region, bucketName, config, publisher, buildId;
+var s3, key, secret, region, bucketName, config, publisher;
 
 var init = function() {
-    buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
     key = Config.isOnProduction ?  Config.credentials.s3.prod.key : Config.credentials.s3.dev.key;
     secret = Config.isOnProduction ?  Config.credentials.s3.prod.secret : Config.credentials.s3.dev.secret;
     region = Config.credentials.s3.region;
-    bucketName = Config.isOnProduction ? 'app.secxbrl.info' : 'www.secxbrl.info-' + buildId;
+    bucketName = Config.bucketName;
     $.util.log('Bucket Name: ' + bucketName);
     config = {
         accessKeyId: key,
@@ -172,7 +165,7 @@ gulp.task('s3-setup', function() {
             var defered = Q.defer();
             gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
-                    .pipe(parallelize(publisher.publish(), 10))
+                    .pipe(parallelize(publisher.publish({}, { force: true }), 10))
                     .pipe(awspublish.reporter())
                     .on('error', defered.reject)
                     .on('end', defered.resolve);
@@ -186,9 +179,17 @@ gulp.task('s3-setup', function() {
     } else {
         return gulp.src('dist/**/*')
             .pipe(awspublish.gzip())
-            .pipe(parallelize(publisher.publish(), 10))
+            .pipe(parallelize(publisher.publish({}, { force: true }), 10))
             .pipe(awspublish.reporter());
     }
+});
+
+gulp.task('s3:upload', function(){
+  init();
+  return gulp.src('dist/**/*')
+    .pipe(awspublish.gzip())
+    .pipe(parallelize(publisher.publish({}, { force: true }), 10))
+    .pipe(awspublish.reporter());
 });
 
 gulp.task('s3-teardown', function(done) {
