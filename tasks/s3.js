@@ -165,7 +165,7 @@ gulp.task('s3-setup', function() {
             var defered = Q.defer();
             gulp.src('dist/**/*')
                     .pipe(awspublish.gzip())
-                    .pipe(parallelize(publisher.publish(), 10))
+                    .pipe(parallelize(publisher.publish({}, { force: true }), 10))
                     .pipe(awspublish.reporter())
                     .on('error', defered.reject)
                     .on('end', defered.resolve);
@@ -179,7 +179,7 @@ gulp.task('s3-setup', function() {
     } else {
         return gulp.src('dist/**/*')
             .pipe(awspublish.gzip())
-            .pipe(parallelize(publisher.publish(), 10))
+            .pipe(parallelize(publisher.publish({}, { force: true }), 10))
             .pipe(awspublish.reporter());
     }
 });
@@ -188,7 +188,7 @@ gulp.task('s3:upload', function(){
   init();
   return gulp.src('dist/**/*')
     .pipe(awspublish.gzip())
-    .pipe(parallelize(publisher.publish(), 10))
+    .pipe(parallelize(publisher.publish({}, { force: true }), 10))
     .pipe(awspublish.reporter());
 });
 
