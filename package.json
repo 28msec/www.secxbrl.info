@@ -47,15 +47,18 @@
     "gulp-uglify": "^1.0.1",
     "gulp-useref": "^1.0.2",
     "gulp-util": "^2.2.14",
+    "jsdom": "^1.5.0",
     "lodash": "^2.4.1",
     "map-stream": "^0.1.0",
     "minimist": "^1.1.0",
+    "mkdirp": "^0.5.0",
     "protractor-html-screenshot-reporter": "0.0.17",
     "q": "^1.0.1",
     "request": "^2.44.0",
     "serve-static": "^1.7.0",
     "shelljs": "^0.3.0",
-    "swagger-js-codegen": "^0.2.1"
+    "swagger-js-codegen": "^0.2.1",
+    "xml-parser": "^1.2.0"
   },
   "engines": {
     "node": ">=0.10.x"

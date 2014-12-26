@@ -14,6 +14,7 @@ require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/tests');
 require('./tasks/ci');
+require('./tasks/prerender');
 
 gulp.task('watch', function() {
   return gulp.watch(Config.paths.less, ['less']);
@@ -52,7 +53,7 @@ gulp.task('copy-svg', function(){
 });
 
 gulp.task('extras', function () {
-  var extras = Config.paths.html.concat(Config.paths.fonts);
+  var extras = Config.paths.html.concat(Config.paths.fonts).concat([Config.paths.sitemap, Config.paths.robots]);
   return gulp.src(extras, { dot: true })
     .pipe(gulp.dest(Config.paths.dist));
 });
@@ -79,8 +80,17 @@ gulp.task('test', ['server:prod'], function (done) {
 
 gulp.task('default', ['build']);
 
+gulp.task('seo', function(done){
+  if(true || Config.isOnProduction) {
+    $.runSequence('prerender', 's3:upload', done);
+  } else {
+    $.util.log('Only perform SEO task on production.');
+    done();
+  }
+});
+
 gulp.task('setup', function(done){
-  $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', 'server:stop', done);
+  $.runSequence('build', 'server:dist', 's3-setup', 'seo', 'server:stop', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){
