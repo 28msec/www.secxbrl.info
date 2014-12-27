@@ -5,10 +5,6 @@ angular
 .directive('heroUnit', function($window, $rootScope){
 
     var onScroll = function(event, toState) {
-        if(document.querySelector('nav.navbar') === null) {
-          setTimeout(onScroll, 300);
-          return;
-        }
         var top = document.body.getBoundingClientRect().top;
         if(top >= 0 && ((document.getElementById('home') !== null && !toState) || (toState && toState.name === 'home.start'))) {
             document.querySelector('nav.navbar').classList.add('transparent');
@@ -17,11 +13,11 @@ angular
         }
     };
 
-    angular.element($window).bind('scroll', onScroll);
-    onScroll();
-    $rootScope.$on('$stateChangeSuccess', onScroll);
-
     return function($scope, $element){
+        angular.element($window).bind('scroll', onScroll);
+        onScroll();
+        $rootScope.$on('$stateChangeSuccess', onScroll);
+
         var w = angular.element($window);
 
         $scope.getWindowDimensions = function () {
