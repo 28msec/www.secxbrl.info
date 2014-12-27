@@ -6,6 +6,7 @@ angular
 
     var onScroll = function(event, toState) {
         if(document.querySelector('nav.navbar') === null) {
+          setTimeout(onScroll, 300);
           return;
         }
         var top = document.body.getBoundingClientRect().top;
