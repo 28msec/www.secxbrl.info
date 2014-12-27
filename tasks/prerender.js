@@ -74,6 +74,7 @@ gulp.task('prerender', function(){
 
   var write = function(data){
     var tplWindow = jsdom(tpl, null, jsdomOpts).parentWindow;
+    data.body = data.body.replace(/ng-controller/g, 'noop').replace(/ng-bind-html/g, 'noop').replace(/ng-if/g, 'noop').replace(/ng-include/g, 'noop');
     var document = jsdom(data.body, null, jsdomOpts);
     var destDir = 'dist' + data.path;
     var window = document.parentWindow;
