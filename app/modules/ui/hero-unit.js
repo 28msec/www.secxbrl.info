@@ -5,6 +5,9 @@ angular
 .directive('heroUnit', function($window, $rootScope){
 
     var onScroll = function(event, toState) {
+        if(document.querySelector('nav.navbar') === null) {
+          return;
+        }
         var top = document.body.getBoundingClientRect().top;
         if(top >= 0 && ((document.getElementById('home') !== null && !toState) || (toState && toState.name === 'home.start'))) {
             document.querySelector('nav.navbar').classList.add('transparent');

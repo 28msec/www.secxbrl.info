@@ -47,9 +47,6 @@ gulp.task('prerender', function(){
       uri: uri,
       method: 'GET'
     }, function(error, response, body){
-      if(error) {
-        defered.reject(error);
-      }
       if(!_.isString(body) || body.indexOf('<article ') === -1) {
         if (retry < 10) {
           retry++;
