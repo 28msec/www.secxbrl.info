@@ -32,4 +32,12 @@ describe('Private Account Profile Page', function(){
         expect(home.alert.header.getText()).toBe('Success');
     });
 
+    it('should have a working cell store manager link', function() {
+        home.account.clickCellStoreManagerLink().then(
+            function(response){
+                expect(response.status).toBe(200);
+            }
+        );
+    });
+
 });
