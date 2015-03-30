@@ -26,11 +26,11 @@ AccountPage.prototype.clickCellStoreManagerLink = function(){
         .then(function(href) {
             http.get(href, function(response) {
 
-                var bodyString = '';
+                /*var bodyString = '';
                 response.setEncoding('utf8');
                 response.on('data', function(chunk) {
                     bodyString += chunk;
-                });
+                });*/
                 response.on('end', function() {
                     deferred.resolve({
                         status: response.statusCode
