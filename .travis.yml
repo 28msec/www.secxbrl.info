@@ -5,6 +5,7 @@ addons:
   firefox: '31.0'
 install:
 - rm -rf /home/travis/build/28msec/www.secxbrl.info/node_modules/protractor/node_modules/
+- rm -rf /home/travis/.npm/
 - npm install -g bower gulp
 - npm install
 - bower install
