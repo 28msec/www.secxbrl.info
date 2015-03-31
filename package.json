@@ -58,7 +58,7 @@
     "request": "^2.44.0",
     "serve-static": "^1.7.0",
     "shelljs": "^0.3.0",
-    "swagger-js-codegen": "^0.2.1",
+    "swagger-js-codegen": "1.1.0",
     "xml-parser": "^1.2.0"
   },
   "engines": {
