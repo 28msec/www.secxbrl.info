@@ -11,8 +11,6 @@ angular.module('secxbrl', [
     'constants',
     'api',
     'session-model',
-    'users-api',
-    'billing-api',
     'ngSanitize',
     'angular.directives-round-progress' // round api calls widget on stats page
 ])

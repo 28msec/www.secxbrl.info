@@ -17,19 +17,19 @@ gulp.task('swagger', function(done){
     var CodeGen = require('swagger-js-codegen').CodeGen;
     var apis = [
         {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/queries.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/cellstore/master/swagger/queries.json',
             moduleName: 'queries-api',
             className: 'QueriesAPI'
         }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/session.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/cellstore/master/swagger/session.json',
             moduleName: 'session-api',
             className: 'SessionAPI'
         }, {
-            swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/users.json',
+            swagger: 'https://raw.githubusercontent.com/28msec/cellstore/master/swagger/users.json',
             moduleName: 'users-api',
             className: 'UsersAPI'
         }, {
-          swagger: 'https://raw.githubusercontent.com/28msec/secxbrl.info/master/swagger/billing.json',
+          swagger: 'https://raw.githubusercontent.com/28msec/cellstore/master/swagger/billing.json',
           moduleName: 'billing-api',
           className: 'BillingAPI'
         }
