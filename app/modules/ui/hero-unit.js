@@ -46,5 +46,14 @@ angular
 
     };
 })
+.directive('currentYear', function(){
+  return {
+    restrict: 'A',
+    link: function($scope, $element){
+      var date = new Date();
+      $element.text(date.getFullYear());
+    }
+  };
+})
 ;
 
