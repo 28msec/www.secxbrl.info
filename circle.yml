@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 0.10.33
+dependencies:
+  post:
+    - gem install sass
+    - npm install -g bower gulp
+    - bower install
+test:
+  override:
+    - gulp setup --build-id="$CIRCLE_BUILD_NUM"
+  post:
+    - gulp teardown --build-id="$CIRCLE_BUILD_NUM"

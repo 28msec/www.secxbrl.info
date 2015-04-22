@@ -7,8 +7,8 @@ var knownOptions = {
   default: { 'build-id': process.env.RANDOM_ID }
 };
 
-var isOnTravis = process.env.TRAVIS_BUILD_ID !== undefined;
-var isOnTravisAndMaster = isOnTravis && process.env.TRAVIS_BRANCH === 'master' && process.env.TRAVIS_PULL_REQUEST === 'false';
+var isOnTravis = process.env.CIRCLE_BUILD_NUM !== undefined;
+var isOnTravisAndMaster = isOnTravis && process.env.CIRCLE_BRANCH === 'master' && process.env.CI_PULL_REQUEST === '';
 var buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
 var bucketName = isOnTravisAndMaster ? 'app.secxbrl.info' : 'app.secxbrl.info-' + buildId;
 
