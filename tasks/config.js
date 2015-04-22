@@ -9,6 +9,8 @@ var knownOptions = {
 
 var isOnTravis = process.env.CIRCLE_BUILD_NUM !== undefined;
 var isOnTravisAndMaster = isOnTravis && process.env.CIRCLE_BRANCH === 'master' && process.env.CI_PULL_REQUEST === '';
+var buildId = minimist(process.argv.slice(2), knownOptions)['build-id'];
+var bucketName = isOnTravisAndMaster ? 'app.secxbrl.info' : 'app.secxbrl.info-' + buildId;
 
 module.exports = {
     isOnTravis: isOnTravis,
