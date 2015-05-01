@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('secxbrl')
-.controller('StartCtrl', function($scope, $document, Session){
-    $scope.user = Session.getUser();
-    $scope.authenticated = ($scope.user !== undefined && $scope.user !== null);
+.controller('StartCtrl', function($scope, $document){
+    $scope.authenticated = false;
 
     $scope.goTo = function (eID){
         $document.scrollToElementAnimated(window.document.getElementById(eID), undefined, 1000);

@@ -1,0 +1,8 @@
+<ul class="nav navbar-nav navbar-right" id="account-widget">
+  <a ng-show="!user" href="http://hq.secxbrl.info/" target="_blank" class="btn btn-default menu-button account-sign-in" style="margin-top: 6px; margin-right: 15px;">Login</a>
+  <a ng-show="!user" href="http://hq.secxbrl.info/auth/sign-up" class="btn btn-primary menu-button account-sign-up" style="margin-top: 6px; margin-right: 15px;">Sign Up</a>
+  <div ng-show="user" class="btn-group menu-button" style="margin-top: 6px; margin-right: 15px;">
+    <a ng-show="user" ui-sref2="home.account.profile()" class="btn btn-primary" ng-bind="name"></a>
+    <a ng-show="user" ui-sref2="auth.logout()" class="btn btn-primary account-sign-out"><i class="fa fa-sign-out"></i></a>
+  </div>
+</ul>

@@ -9,9 +9,8 @@ angular.module('secxbrl', [
     'ui.bootstrap',
     'ngProgressLite',
     'constants',
-    'api',
-    'session-model',
     'ngSanitize',
+    'contact-us',
     'angular.directives-round-progress' // round api calls widget on stats page
 ])
 
@@ -74,7 +73,7 @@ angular.module('secxbrl', [
     });
 })
 
-.run(function($rootScope, ngProgressLite, $state, $location, $modal, API, Session, DEBUG, $log) {
+.run(function($rootScope, ngProgressLite) {
 
     $rootScope.$on('$stateChangeStart', function() {
         ngProgressLite.start();
@@ -84,76 +83,8 @@ angular.module('secxbrl', [
         ngProgressLite.done();
     });
 
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        if(DEBUG){
-            var desc;
-            if (error.status){
-                desc = error.status + ' - ' + JSON.stringify(error.data);
-            } else {
-                desc = error.message;
-            }
-            var msg = 'StateChangeError: from "' + fromState.name + '" to "' + toState.name + '": ' + desc;
-            $log.error(msg);
-        }
-        if(error.message === 'AuthError') {
-            Session.redirectToLoginPage();
-        }
+    $rootScope.$on('$stateChangeError', function() {
         ngProgressLite.done();
-    });
-
-    $rootScope.$on('auth', function() {
-        Session.logout();
-        Session.redirectToLoginPage();
-    });
-
-    $rootScope.$on('error', function(event, title, message){
-        $modal.open( {
-            template: '<div class="modal-header alert-danger"><span ng-bind-html="errorObject.title" id="error-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" id="error-body"><div ng-repeat="message in errorObject.message" ng-bind-html="message"></div> </div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
-            controller: ['$scope', '$modalInstance', 'errorObject',  function ($scope, $modalInstance, errorObject) {
-                $scope.errorObject = errorObject;
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            }],
-            resolve: {
-                errorObject: function() {
-                    var msg = [ message ];
-                    if(typeof message === 'object' && message.status && message.body){
-                        var status = message.status;
-                        var code = message.body.code;
-                        var description = message.body.description;
-                        var errorMsg = message.body.message;
-
-                        msg = [];
-                        if(typeof code === 'string' && typeof description === 'string'){
-                            msg.push('' + description);
-                            msg.push('Error Code: ' + code);
-                        } else if(typeof errorMsg === 'string'){
-                            msg.push('' + errorMsg);
-                        } else if(status === 403){
-                            msg.push('Forbidden (Possible reason: Invalid password)');
-                        }
-                        msg.push('Status: ' + status);
-                    }
-                    return { title: title, message: msg };
-                }
-            }
-        });
-    });
-
-    $rootScope.$on('alert', function(event, title, message){
-        $modal.open( {
-            template: '<div class="modal-header"><span ng-bind-html="object.title" id="alert-header"></span><a class="close" ng-click="cancel()">&times;</a></div><div class="modal-body" ng-bind-html="object.message" id="alert-body"></div><div class="text-right modal-footer"><button class="btn btn-default" ng-click="cancel()">OK</button></div>',
-            controller: ['$scope', '$modalInstance', 'object',  function ($scope, $modalInstance, object) {
-                $scope.object = object;
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            }],
-            resolve: {
-                object: function() { return { title: title, message: message }; }
-            }
-        });
     });
 })
 ;
