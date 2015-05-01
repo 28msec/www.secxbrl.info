@@ -10,7 +10,6 @@ var Config = require('./tasks/config');
 require('./tasks/lint');
 require('./tasks/html');
 require('./tasks/images');
-require('./tasks/swagger');
 require('./tasks/s3');
 require('./tasks/tests');
 require('./tasks/ci');
@@ -44,10 +43,6 @@ gulp.task('fonts', function(){
   return gulp.src('bower_components/font-awesome/fonts/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/fonts'));
 });
 
-gulp.task('copy-swagger', function(){
-  return gulp.src('swagger/*', { dot: true }).pipe(gulp.dest(Config.paths.dist + '/swagger'));
-});
-
 gulp.task('copy-svg', function(){
   return gulp.src(Config.paths.svgs, { dot: true }).pipe(gulp.dest(Config.paths.dist + '/images'));
 });
@@ -62,11 +57,11 @@ gulp.task('clean', function () {
   return gulp.src([Config.paths.tmp, Config.paths.dist], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['clean', 'swagger'], function(done){
-  $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-swagger', 'copy-svg', 'extras'], done);
+gulp.task('build', ['clean'], function(done){
+  $.runSequence(['load-config', 'lint', 'html', 'images', 'fonts', 'copy-svg', 'extras'], done);
 });
 
-gulp.task('server', ['less', 'swagger', 'decrypt'], function(){
+gulp.task('server', ['less', 'decrypt'], function(){
   $.runSequence('server:dev');
 });
 
@@ -90,7 +85,7 @@ gulp.task('seo', function(done){
 });
 
 gulp.task('setup', function(done){
-  $.runSequence('build', 'server:dist', 'test:e2e', 's3-setup', 'seo', 'server:stop', done);
+  $.runSequence('build', 'server:dist', 's3-setup', 'seo', 'server:stop', done);
 });
 
 gulp.task('teardown', ['load-config'], function(){

@@ -27,14 +27,6 @@ exports.config = {
             browser.params.browser = caps.get('browserName');
         });
 
-        //Login
-        var config = require('./config').config;
-        var Auth = require('../../../app/auth/auth-page');
-        var login = new Auth().login;
-        login.visitPage();
-        login.login('support@28.io', config.testPassword);
-        browser.waitForAngular();
-
         if(config.environment === 'ci' || config.environment === 'prod') {
             // Add a screenshot reporter and store screenshots to config.e2eReportsDir:
             jasmine.getEnv().addReporter(new HtmlReporter({
